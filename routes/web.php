@@ -19,3 +19,4 @@ Route::get('/', function () {
 Route::get('/event', function(){
     return view('event.create');
 });
+
