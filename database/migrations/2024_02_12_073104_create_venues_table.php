@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('venues', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('address');
+            $table->integer('capacity');
+            $table->tinyInteger('is_available');
+            $table->double('rental_fee');
+            $table->date('available_date');
+            $table->string('contracts');
+            $table->text('notes');
             $table->timestamps();
         });
     }

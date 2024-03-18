@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('timelines', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('event_id')
+                ->constrained('events');
+            $table->string('event_phase');
+            $table->string('activity');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->text('notes');
             $table->timestamps();
         });
     }

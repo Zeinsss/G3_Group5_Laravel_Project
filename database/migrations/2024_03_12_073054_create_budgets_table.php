@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
+            $table->string("category");
+            $table->double('cost');
+            $table->double('expenses');
+            $table->double('payment_made');
+            $table->double('remain_balance');
+            $table->foreignId('event_id')
+                ->constrained('events');
             $table->timestamps();
         });
     }

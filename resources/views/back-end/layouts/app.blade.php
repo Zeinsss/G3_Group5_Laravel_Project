@@ -28,11 +28,11 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    @include("layouts.navbar")
-    @include("layouts.main_sidebar_container")
+    @include("back-end.layouts.navbar")
+    @include("back-end.layouts.main_sidebar_container")
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include("layouts.control_sidebar")
+        @include("back-end.layouts.control_sidebar")
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -42,8 +42,8 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    @include("layouts.main_footer")
-    @include("layouts.control_sidebar")
+    @include("back-end.layouts.main_footer")
+    @include("back-end.layouts.control_sidebar")
 
 </div>
 <!-- ./wrapper -->

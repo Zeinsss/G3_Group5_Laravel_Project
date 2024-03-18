@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/event', function(){
-    return view('event.create');
+    return view('back-end.event.create');
 });
-
+Route::get('/home', function(){
+    return view('front-end.webpage.home');
+});
