@@ -98,16 +98,22 @@
         <div class="logo">Event Planner</div>
         <ul class="nav-links">
             <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="{{ route('events') }}">Events</a></li>
-            <li><a href="{{ route('services') }}">Services</a></li>
-            <li><a href="{{ route('about') }}">About</a></li>
-            <li><a href="{{ route('contact') }}">Contact</a></li>
+            <li><a href="">Events</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
         </ul>
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
     </div>
 </nav>
+<!-- Main Contents -->
+<section class="content">
+    <div class="container-fluid">
+        @yield('contents')
+    </div>
+</section>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <footer>
     <div class="footer-content">

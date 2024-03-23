@@ -17,5 +17,5 @@ Route::get('/event', function(){
     return view('back-end.event.create');
 });
 Route::get('/home', function(){
-    return view('front-end.webpage.home');
-});
+    return view('front-end.webpage.app');
+})->name('home');
