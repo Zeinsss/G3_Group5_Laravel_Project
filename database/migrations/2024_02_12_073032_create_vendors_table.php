@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('services');
-            $table->string('pricing');
+            $table->double('pricing');
             $table->string('contract_url');
             $table->text('notes');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();;
         });
     }
 

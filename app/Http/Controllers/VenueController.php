@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Venue;
 use App\Http\Requests\StoreVenueRequest;
 use App\Http\Requests\UpdateVenueRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class VenueController extends Controller
 {
@@ -13,7 +16,7 @@ class VenueController extends Controller
      */
     public function index()
     {
-        //
+        return view('venues.index');
     }
 
     /**
@@ -21,7 +24,16 @@ class VenueController extends Controller
      */
     public function create()
     {
-        //
+    //    Schema::create('venues', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string('name');
+    //         $table->string('address');
+    //         $table->string('contact');
+    //         $table->string('email');
+    //         $table->string('notes');
+    //         $table->timestamps();
+    //     }); 
+        return view('venues.create');
     }
 
     /**
@@ -29,7 +41,7 @@ class VenueController extends Controller
      */
     public function store(StoreVenueRequest $request)
     {
-        //
+        
     }
 
     /**

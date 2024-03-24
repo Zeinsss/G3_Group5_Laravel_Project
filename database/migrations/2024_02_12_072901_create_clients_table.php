@@ -16,11 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('preferences');
             $table->unsignedDouble('budgets');
-            $table->text('expectations');
             $table->text('notes');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

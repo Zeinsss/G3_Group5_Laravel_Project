@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\VenueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +17,9 @@ Route::get('/event', function(){
     return view('back-end.event.create');
 });
 Route::get('/home', function(){
-    return view('front-end.webpage.app');
+    return view('front-end.layouts.app');
 })->name('home');
+Route::get('/venue', [VenueController::class, 'index'])->name('venue.index');
+Route::get('/venue/create', [VenueController::class, 'create'])->name('venue.create');
+Route::post('/venue', [VenueController::class, 'store'])->name('venue.store');
+Route::get('/venue/{venue}', [VenueController::class, 'show'])->name('venue.show');

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->integer('attendance');
             $table->foreignId('event_id')
                 ->constrained('events');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

@@ -19,9 +19,9 @@ return new class extends Migration
             $table->tinyInteger('is_available');
             $table->double('rental_fee');
             $table->date('available_date');
-            $table->string('contracts');
             $table->text('notes');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

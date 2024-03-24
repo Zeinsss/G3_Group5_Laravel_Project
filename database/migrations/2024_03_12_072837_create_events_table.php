@@ -20,8 +20,10 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('client_id')
                 ->constrained('clients');
+            $table->double('budget');
             $table->string('status');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
