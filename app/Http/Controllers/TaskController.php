@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-
+use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     /**
@@ -13,7 +13,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return view('tasks.index', ['tasks' => Task::all()]);
     }
 
     /**
@@ -21,15 +21,25 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->validated([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|in:pending,completed',
+            'due_date' => 'required|date',
+            'event_id' => 'required|exists:events,id',
+            'priority' => 'required|in:low,medium,high',
+            'member' => 'required|string'
+        ]);
+        $newTask = Task::create($data);
+        return redirect(route('tasks.index'));
     }
 
     /**

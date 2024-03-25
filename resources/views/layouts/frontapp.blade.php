@@ -97,9 +97,9 @@
         <div class="logo">Event Planner</div>
         <ul class="nav-links">
             <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="">Events</a></li>
-            <li><a href="">Services</a></li>
-            <li><a href="">About</a></li>
+            <li><a href="">Create Your Events</a></li>
+            <li><a href="">Venue</a></li>
+            <li><a href="">Vendors</a></li>
             <li><a href="">Contact</a></li>
         </ul>
         <div class="menu-toggle">

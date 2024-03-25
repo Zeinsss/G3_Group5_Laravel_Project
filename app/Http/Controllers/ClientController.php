@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Event;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -13,7 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+       return view('clients.index', ['clients' => Client::all()]); 
     }
 
     /**
@@ -21,15 +23,27 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        $events = Event::all();
+        return view('clients.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClientRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'budgets' => 'required|numeric',
+            'notes' => 'nullable|string'
+        ]);
+
+        $newClient = Client::create($data);
+
+        return redirect()->route('clients.index');
+
     }
 
     /**
@@ -45,15 +59,25 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit', ['client' => $client]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(Request $request, Client $client)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'budgets' => 'required|numeric',
+            'notes' => 'nullable|string'
+        ]);
+
+        $client->update($data);
+
+        return redirect(route('clients.index'))->with('success', 'Client updated successfully');
     }
 
     /**
@@ -61,6 +85,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return redirect(route('clients.index'))->with('success', 'Client deleted successfully');
     }
 }

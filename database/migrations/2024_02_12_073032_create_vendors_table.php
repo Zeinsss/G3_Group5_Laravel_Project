@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('services');
             $table->double('pricing');
-            $table->string('contract_url');
             $table->text('notes');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();;

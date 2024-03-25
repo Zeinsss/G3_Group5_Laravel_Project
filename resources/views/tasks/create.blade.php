@@ -1,5 +1,4 @@
-@extends ('layouts.frontapp')
-
-@section ('content')
-  <h1>Hello</h1>
+@extends ('layouts.app')
+@section('content')
+    <h1>Create Task</h1>
 @endsection

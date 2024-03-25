@@ -16,12 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->date('date');
             $table->time('time');
-            $table->string('location');
             $table->text('description');
             $table->foreignId('client_id')
                 ->constrained('clients');
             $table->double('budget');
             $table->string('status');
+            $table->foreignId('vendor_id')
+                ->constrained('vendors');
+            $table->foreignId('venue_id')
+                ->constrained('venues');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

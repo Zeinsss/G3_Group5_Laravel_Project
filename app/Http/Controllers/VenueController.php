@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venue;
+use App\Models\Event;
 use App\Http\Requests\StoreVenueRequest;
 use App\Http\Requests\UpdateVenueRequest;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class VenueController extends Controller
 {
@@ -16,7 +16,7 @@ class VenueController extends Controller
      */
     public function index()
     {
-        return view('venues.index');
+        return view('venues.index', ['venues' => Venue::all()]);
     }
 
     /**
@@ -24,24 +24,28 @@ class VenueController extends Controller
      */
     public function create()
     {
-    //    Schema::create('venues', function (Blueprint $table) {
-    //         $table->id();
-    //         $table->string('name');
-    //         $table->string('address');
-    //         $table->string('contact');
-    //         $table->string('email');
-    //         $table->string('notes');
-    //         $table->timestamps();
-    //     }); 
+        $event = Event::all();
         return view('venues.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVenueRequest $request)
+    public function store(Request $request)
     {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'capacity' => 'required|numeric',
+            "is_available" => "required|boolean",
+            "rental_fee" => "required|numeric",
+            "available_date" => "required|date",
+            'notes' => 'nullable|string'
+        ]);
         
+        $newVenue = Venue::create($data);
+        
+        return redirect()->route('venues.index');
     }
 
     /**
@@ -49,7 +53,7 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-        //
+        return view('venues.show', ['venue' => $venue]);
     }
 
     /**
@@ -57,15 +61,27 @@ class VenueController extends Controller
      */
     public function edit(Venue $venue)
     {
-        //
+        return view('venues.edit', ['venue' => $venue]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVenueRequest $request, Venue $venue)
+    public function update(Request $request, Venue $venue)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'capacity' => 'required|numeric',
+            "is_available" => "required|boolean",
+            "rental_fee" => "required|numeric",
+            "available_date" => "required|date",
+            'notes' => 'nullable|string'
+        ]);
+        
+        $venue->update($data);
+        
+        return redirect()->route('venues.index')->with('success', 'Venue updated successfully');
     }
 
     /**
@@ -73,6 +89,8 @@ class VenueController extends Controller
      */
     public function destroy(Venue $venue)
     {
-        //
+        $venue->delete();
+        
+        return redirect()->route('venues.index')->with('success', 'Venue deleted successfully');
     }
 }
