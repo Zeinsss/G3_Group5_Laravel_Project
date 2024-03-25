@@ -1,4 +1,4 @@
-@extends ('back-end.layouts.app');
+@extends ('layouts.frontapp')
 
 @section ('content')
   <h1>Hello</h1>

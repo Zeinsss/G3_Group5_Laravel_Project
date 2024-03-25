@@ -90,7 +90,6 @@
             margin: 0;
         }
     </style>
-
 </head>
 <body>
 <nav class="navbar">
