@@ -35,4 +35,14 @@ class event extends Model
     {
         return $this->belongsTo(Venue::class);
     }   
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function attendees()
+    {
+        return $this->hasMany(Attendee::class);
+    }
 }

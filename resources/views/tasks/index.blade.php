@@ -17,38 +17,60 @@
         h1 {
             margin: 15px 35px;  
         }
+        td {
+          border-bottom: 2px solid #000;
+        }
     </style>
   <h1>Task List</h1>
-  <table class="table table-striped table-bordered">
+  <div class="button-create">
+    <a href="{{ route('tasks.create') }}">
+      <x-primary-button>
+        {{__('Create new Task')}}
+      </x-primary-button>
+    </a>
+  </div>
+  <table class="table table-md">
     <thead>
       <tr>
         <th>Task</th>
-        <th>Name</th>
+        <th>Event Name</th>
         <th>Description</th>
         <th>Due Date</th>
         <th>Member</th>
         <th>Status</th>
         <th>Priority</th>
-        <th>Event Name</th>
-        <th>Actions</th>
+        <th>Action (Edit)</th>
+        <th>Action (Delete)</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($tasks as $task)
         <tr>
           <td>{{ $task->name }}</td>
-          <td>{{ $task->created_at }}</td>
-          <td>{{ $task->updated_at }}</td>
+          <td>{{ $task->event->name }}</td>
+          <td>{{ $task->due_date }}</td>
+          <td>{{ $task->description }}</td>
+          <td>{{ $task->member }}</td>
+          <td>{{ $task->status }}</td>
+          <td>{{ $task->priority }}</td>
+          
           <td>
-            <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-default">View</a>
-            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning">Edit</a>
-            <form style="display:inline-block" method="POST" action="{{ route('tasks.destroy', $task->id) }}">
-              <input type="hidden" name="_method" value="DELETE">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <button type="submit" class="form-control btn btn-danger">Delete</a>
-            </form>
+            <a href="{{ route('tasks.edit', $task) }}">
+              <x-primary-button>
+                {{__('Edit')}}
+              </x-primary-button>
+            </a>
           </td>
+          <td>
+            <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+              @csrf
+              @method('DELETE')
+              <x-danger-button>
+                {{__('Delete')}}
+              </x-danger-button>
+            </form>
         </tr>
       @endforeach
     </tbody>
+  </table>
 @endsection

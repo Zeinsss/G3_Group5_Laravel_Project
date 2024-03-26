@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Event;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('tasks.index', ['tasks' => Task::all()]);
+        $data_event = Task::with('event')->get();
+        return view('tasks.index', ['tasks' => Task::all(), 'events' => $data_event]);
     }
 
     /**
@@ -21,7 +23,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('tasks.create', ['events' => Event::all()]);
     }
 
     /**
@@ -29,7 +31,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validated([
+        $data = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'status' => 'required|in:pending,completed',
@@ -55,15 +57,25 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view('tasks.edit', ['task' => $task, 'events' => Event::all()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|in:pending,completed',
+            'due_date' => 'required|date',
+            'event_id' => 'required|exists:events,id',
+            'priority' => 'required|in:low,medium,high',
+            'member' => 'required|string'
+        ]);
+        $task->update($data);
+        return redirect(route('tasks.index'));
     }
 
     /**
@@ -71,6 +83,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect(route('tasks.index'));  
     }
 }

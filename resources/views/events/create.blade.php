@@ -33,7 +33,7 @@
       </div>
       <div class="mb-3 form-group">
           <label for="client_id" class="form-label">Client Name:</label>
-          <select class="form-control" id="client_id" name="client_id">
+          <select style="height:40px" class="form-control" id="client_id" name="client_id">
               @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
               @endforeach
@@ -49,7 +49,7 @@
       </div>
       <div class="mb-3 form-group">
           <label for="vendor_id" class="form-label">Vendor Name:</label>
-          <select class="form-control" id="vendor_id" name="vendor_id">
+          <select style="height:40px" class="form-control" id="vendor_id" name="vendor_id">
               @foreach ($vendors as $vendor)
                   <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
               @endforeach
@@ -57,7 +57,7 @@
       </div>
       <div class="mb-3 form-group">
           <label for="venue_id" class="form-label">Venue Name:</label>
-          <select class="form-control" id="venue_id" name="venue_id">
+          <select style="height:40px" class="form-control" id="venue_id" name="venue_id">
               @foreach ($venues as $venue)
                   <option value="{{ $venue->id }}">{{ $venue->name }}</option>
               @endforeach

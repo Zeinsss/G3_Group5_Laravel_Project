@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\event;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\VenueController;
+use App\Http\Controllers\AttendeeController;
 
 
 /*
@@ -26,9 +28,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,6 +39,14 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // Attendees (DONE)
+    Route::get('/attendees', [AttendeeController::class, 'index'])->name('attendees.index');
+    Route::get('/attendees/create', [AttendeeController::class, 'create'])->name('attendees.create');
+    Route::post('/attendees', [AttendeeController::class, 'store'])->name('attendees.store');
+    Route::get('/attendees/{attendee}/edit', [AttendeeController::class, 'edit'])->name('attendees.edit');
+    Route::put('/attendees/{attendee}', [AttendeeController::class, 'update'])->name('attendees.update');
+    Route::delete('/attendees/{attendee}', [AttendeeController::class, 'destroy'])->name('attendees.destroy');
     
     // Clients (DONE)
 
@@ -48,7 +57,7 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
 
-    // Tasks
+    // Tasks (DONE))
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
@@ -78,6 +87,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'); 
     
     // Vendor (DONE)
 

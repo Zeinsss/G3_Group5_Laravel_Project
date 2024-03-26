@@ -12,19 +12,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        
+        return view('users.index', ['users' => User::all()]);
     }
     public function create()
     {
         
     }
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
         return redirect()->route('users.index');
     }
     public function show(User $user): View
@@ -35,12 +37,17 @@ class UserController extends Controller
     {
         return view('users.edit', ['user' => $user]);
     }
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(Request $request, User $user)
     {
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+        if ($data['password'] != $user->password) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        $user->update($data);
         return redirect()->route('users.index');
     }
     public function destroy(User $user): RedirectResponse
@@ -48,4 +55,5 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index');
     }   
+    
 }

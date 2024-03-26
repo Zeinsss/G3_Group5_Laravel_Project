@@ -18,4 +18,9 @@ class Task extends Model
         'priority',
         'member'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

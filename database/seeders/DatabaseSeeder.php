@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
             VenueSeeder::class,
             VendorSeeder::class,
             CreateUsersSeeder::class,
+            ClientSeeder::class,
+            EventSeeder::class,
+            TaskSeeder::class,
+            AttendeeSeeder::class,
         ]);
     }
 }
