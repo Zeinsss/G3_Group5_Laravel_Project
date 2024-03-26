@@ -29,10 +29,10 @@
             <input type="password" class="form-control" id="password" name="password" value='{{$user->password}}'>
         </div>
         <div class="mb-3 form-group">
-            <label for="role" class="form-label">Role:</label>
-            <select style="height:40px" class="form-control" id="role" name="role">
-                <option value="admin" {{ $user->type == 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="user" {{ $user->type == 'user' ? 'selected' : '' }}>User</option>
+            <label for="type" class="form-label">Role:</label>
+            <select style="height:40px" class="form-control" id="type" name="type">
+                <option value="0" {{ $user->type == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="1" {{ $user->type == 'user' ? 'selected' : '' }}>User</option>
             </select>
         </div>
         <x-primary-button class="btn-sm">

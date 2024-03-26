@@ -23,7 +23,8 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'type' => 'required'
         ]);
         $data['password'] = bcrypt($data['password']);
         User::create($data);
@@ -42,7 +43,8 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'type' => 'required'
         ]);
         if ($data['password'] != $user->password) {
             $data['password'] = bcrypt($data['password']);

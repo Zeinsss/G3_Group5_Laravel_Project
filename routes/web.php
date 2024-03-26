@@ -44,9 +44,30 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/attendees', [AttendeeController::class, 'index'])->name('attendees.index');
     Route::get('/attendees/create', [AttendeeController::class, 'create'])->name('attendees.create');
     Route::post('/attendees', [AttendeeController::class, 'store'])->name('attendees.store');
+
+    // Events (DONE)
+    Route::get('/events', [EventController::class, 'index'])->name('events.index');
+});
+
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'); 
+
     Route::get('/attendees/{attendee}/edit', [AttendeeController::class, 'edit'])->name('attendees.edit');
     Route::put('/attendees/{attendee}', [AttendeeController::class, 'update'])->name('attendees.update');
     Route::delete('/attendees/{attendee}', [AttendeeController::class, 'destroy'])->name('attendees.destroy');
+
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     
     // Clients (DONE)
 
@@ -67,28 +88,6 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
-
-    // Events (DONE)
-
-    Route::get('/events', [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
-    Route::post('/events', [EventController::class, 'store'])->name('events.store');
-    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
-    Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
-    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
-
-});
-
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'); 
-    
     // Vendor (DONE)
 
     Route::get('/vendors', [VendorController::class, 'index'])->name('vendors.index');
